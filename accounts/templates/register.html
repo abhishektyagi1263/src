@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<div class="login-main">
+		{% if messages %}
+                
+                {% for message in messages %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+                {% endfor %}
+      
+        {% endif %}
+
+	<section id="card">
+		<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+		<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_wX69nA.json"  background="transparent"  speed="1"  style="width: 500px; height: 500px; margin:0 auto;"  loop  autoplay></lottie-player>	</section>
+		<div class="login-form">
+           
+			<!--
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+			<form method="POST">
+				{%  csrf_token %}
+				<h1>Create Account </h1>
+				<!--  -->
+			
+			<!-- msg -->
+
+                
+				<!-- to error: add class "has-danger" -->
+				<div class="form-group">
+					<label for="exampleInputEmail1">Username</label>
+					<input type="text" name="username" class="form-input" id="exampleInputEmail1" aria-describedby="emailHelp">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputPassword1">Email</label>
+					
+					<input type="email" name="email"class="form-input" id="exampleInputPassword1">
+				</div>
+                <div class="form-group">
+					<label for="exampleInputPassword1">Password</label>
+					<a href="#" style="float:right;font-size:12px;">Forgot password?</a>
+					<input type="password" name="password" class="form-input" id="exampleInputPassword1">
+				</div>
+
+				<button type="submit" class="login-btn">Create Account</button>
+				
+				<div class="dont-have">
+					Don't have an account? <a href="{% url 'login_attempt' %}">Create One</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+   
+    <style>@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+      section {
+        padding: 5em 2em;
+      }
+      
+      body {
+        background: #121212;
+        margin: 0;
+        font-family: "Poppins";
+      }
+      
+      .navbar {
+        background: #2c2c2c;
+        padding: 1em;
+      }
+      .navbar .logo {
+        text-decoration: none;
+        font-weight: bold;
+        color: #fff;
+        font-size: 1.2em;
+        z-index: 1009;
+      }
+      .navbar .logo span {
+        color: #F9192B;
+      }
+      .navbar nav {
+        display: none;
+      }
+      .navbar .container {
+        display: flex;
+        place-content: space-between;
+      }
+      .navbar .mobile-menu {
+        cursor: pointer;
+      }
+      
+      a {
+        color: #fff;
+      }
+      
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      nav.menu-btn {
+        display: block;
+      }
+      
+      nav {
+        position: fixed;
+        z-index: 999;
+        width: 100%;
+        left: 0;
+        top: 0;
+        background: #0f0f0f;
+        height: 100vh;
+        padding: 1em;
+      }
+      nav ul.primary-nav {
+        margin-top: 3em;
+      }
+      nav li a {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        padding: 0.5em;
+        font-family: 1.3em;
+      }
+      nav li a:hover {
+        font-weight: bold;
+      }
+      
+      .search .search-container {
+        float: none;
+      }
+      .search .search-container .search-btn {
+        padding: 0.5rem;
+        background: #0f0f0f;
+        color: white;
+        font-size: 1em;
+        border: none;
+        border-left: none;
+        cursor: pointer;
+      }
+      .search .search-container .search-btn:hover {
+        background: #F9192B;
+      }
+      .search .search-container .search-btn:focus {
+        outline: none;
+      }
+      .search .search-container input.nav-search {
+        padding: 8px;
+        font-size: 1em;
+        border: none;
+        float: left;
+        width: 80%;
+        background: #2c2c2c;
+        color: #fff;
+      }
+      .search .search-container input.nav-search:focus {
+        outline: none;
+      }
+      
+      .mobile-menu-exit {
+        cursor: pointer;
+      }
+      
+      @media only screen and (min-width: 768px) {
+        .mobile-menu, .mobile-menu-exit, .login-link {
+          display: none;
+        }
+      
+        .navbar .container {
+          display: grid;
+          grid-template-columns: 180px auto;
+          justify-content: unset;
+        }
+      
+        .navbar nav {
+          display: flex;
+          justify-content: space-between;
+          background: none;
+          position: unset;
+          height: auto;
+          width: 100%;
+          padding: 0;
+        }
+        .navbar nav ul {
+          display: flex;
+        }
+        .navbar nav a {
+          color: #fff;
+          font-size: 1em;
+          padding: 0.1em 1em;
+        }
+        .navbar nav ul.primary-nav {
+          margin: 0;
+        }
+        .navbar nav li.current a {
+          font-weight: bold;
+        }
+        .navbar nav li.go-premium-cta a {
+          color: #fff;
+          background: #F9192B;
+          font-weight: bold;
+        }
+        .navbar nav li.go-premium-cta a:hover {
+          box-shadow: 0px 0px 15px rgba(249, 25, 43, 0.4);
+          color: white;
+        }
+      }
+      @media (min-width: 850px) {
+        .login-main {
+          display: grid;
+          grid-template-columns: 50% auto;
+          grid-template-areas: "card loginform";
+        }
+      }
+      .login-main .login-form {
+        padding: 1em 2em;
+        color: #fff;
+      }
+      @media (min-width: 850px) {
+        .login-main .login-form {
+          grid-area: loginform;
+          text-align: left;
+        }
+      }
+      .login-main .login-form h1 {
+        font-size: 2rem;
+      }
+      .login-main .login-form h2 {
+        color: #2c2c2c;
+        font-size: 1.5em;
+      }
+      .login-main .login-form h2 span {
+        display: block;
+      }
+      .login-main .login-form .form-group .form-input {
+        padding: 0.5em;
+        font-size: 1em;
+        border: none;
+        border-radius: 3px;
+        float: left;
+        width: 94%;
+        background: #0f0f0f;
+        color: #fff;
+        margin: 1rem auto 0rem auto;
+      }
+      .login-main .login-form .form-group .form-input:focus {
+        outline: none;
+        border: 1px solid #fa3242;
+        box-shadow: 0 0 5px #fa3242;
+      }
+.login-btn {
+        color: #fff;
+        display: block;
+        width: 90%;
+        font-weight: bold;
+        margin: 8em auto 0 auto;
+        padding: 7.5px 0;
+        font-size: 1em;
+        background-color: #F9192B;
+        border: none;
+      }
+      .login-main .login-form .login-btn:focus {
+        outline: none;
+      }
+      .login-main .login-form div.dont-have {
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .login-main .login-form div.dont-have span {
+        color: #F9192B;
+      }
+      .login-main section#card {
+        display: none;
+      }
+      @media (min-width: 850px) {
+        .login-main section#card {
+          grid-area: card;
+          height: fit-content;
+          align-self: center;
+          display: inline-block;
+        }
+      }
+      
+      .mycard {
+        padding: 15px;
+        background: #0f0f0f;
+        margin: 10px;
+        color: white;
+        border-radius: 5px;
+      }
+      </style>
+    <title>Nice</title>
+  </head>
+  <body>
+   {% block content %}
+   {% endblock %}
+
+   
+  </body>
+</html>

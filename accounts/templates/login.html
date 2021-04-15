@@ -1,0 +1,57 @@
+{% extends "base.html"%}
+
+    {% block content %}
+
+
+   
+        <div class="login-main">
+             
+            <section id="card">
+                <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_RpkAZX.json"  background="transparent"  speed="1"  style="width: 450px; height: 450px;"  loop  autoplay></lottie-player>
+
+            </section>
+       
+           
+            <div class="login-form">
+                <!-- error message -->
+            {% if messages %}
+
+                {% for message in messages %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+                {% endfor %}
+          
+            {% endif %}
+            <!-- this genrates errors -->
+
+                <!--
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
+                <form method="post" >
+                    {% csrf_token %}
+                    <h1>Lets sign you in </h1>
+                     <h2><span>Welcome Back</span> <span>You have been Missed</span></h2>
+                    <!-- to error: add class "has-danger" -->
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username</label>
+                        <input type="text" name="username" class="form-input" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <a href="#" style="float:right;font-size:12px;">Forgot password?</a>
+                        <input type="password" name="password" class="form-input" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="login-btn">Sign in</button>
+                    
+                    <div class="dont-have">
+                        Don't have an account? <a href="{% url 'register_attempt' %}">Create One</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+
+    {% endblock %}
