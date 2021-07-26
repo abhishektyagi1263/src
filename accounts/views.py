@@ -10,10 +10,84 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+from django.shortcuts import render
+import requests
+from .models import APIData
+from . import api_test
+from . import forms
+# Create your views here.
+# import eel
+#importing eel
+
+# eel.init('web')
+# eel.start('/')
+# @eel.expose
+# def fun_args(x):
+#         print('hello %s' % x)
 @login_required
 def home(request):
-    return render(request , 'home.html')
+    
+    x_val = api_test.name_list
+    y_val = api_test.home_list
+    z_val = api_test.cover_list
+    n_val = api_test.vid_list
+    # print(x_val)
+    # print(n_val)
+    APIData.objects.all().delete()
+    for i in range(0,30):
+            value = APIData(
+                name = x_val[i],
+                Home = y_val[i],
+                Cover =z_val[i],
+                vid_id = n_val[i],
+                )
+            value.save()
+    data = APIData.objects.all()
+   
 
+    return render(request ,'home.html',{'data':data})
+
+
+@login_required
+def detailview(request):
+    pq = "mahou-no-star-magical-emi-episode-32"
+    # nm = request.get['searchanime']
+    searchform = forms.SearchForm()
+    if request.method == 'POST':
+        searchform = forms.SearchForm(request.POST)
+        if searchform.is_valid():
+            
+            pq = searchform.cleaned_data['search_anime']
+
+   
+    
+    url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+pq
+
+    headers = {
+        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
+        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
+    }
+    resp = requests.request("GET", url, headers=headers)
+    data = resp.json()
+    title = (data['data'][0]['title'])
+    stream = (data['data'][0]['stream'])
+    download = (data['data'][0]['download'])
+    description = (data['data'][0]['description'])
+    cover = (data['episode'][0]['cover'])
+    episode = (data['episode'][0]['episode'])
+    typ = (data['episode'][0]['type'])
+
+
+    return render(request,'detailview.html',{
+        'title':title,
+        'stream':stream,
+        'download':download,
+        'description':description,
+        'cover':cover,
+        'episode':episode,
+        'typ':typ,
+        'searchform':searchform,
+    })
 
 
 def login_attempt(request):

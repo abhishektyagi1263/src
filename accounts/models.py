@@ -10,3 +10,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class APIData(models.Model):
+    vid_id = models.CharField(max_length=50)
+    Home = models.CharField(max_length=50)
+    Cover = models.CharField(max_length=256, null= True)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+	    return self.name
