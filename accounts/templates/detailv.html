@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}s
+<!-- <script type="text/javascript" src="../eel.js"></script> -->
+
+  
+  <div class="container" style="color: white;">
+    <h3 class="mx-auto">{{title}}</h3>
+   <div class="row">
+        <div class="col-lg-8"> Description: <p>{{description}}</p>
+            <h5>Episode : {{episode}}</h5>
+            <h6>Type : {{typ}}</h6>
+            <a class="btn btn-success" href="{{stream}}">Stream</a> 
+           <a class="btn btn-success"  href="{{download}}"> Download</a> </div>
+        <div class="col-lg-4"><img src="{{cover}}" style="width: 270px;" alt="cover img of {{title}}"></div>  </div> 
+       
+    
+ 
+</div>
+
+{% endblock %}
+

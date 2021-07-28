@@ -1,19 +1,14 @@
 {% extends "base.html" %}
 {% block content %}s
 <!-- <script type="text/javascript" src="../eel.js"></script> -->
-<script>
- function reply_click(clicked_id)
-  {
-      alert(clicked_id);
-    //   eel.fun_args_py(clicked_id);
-  }
- </script>
+
 <h1 class="head" style="font-size:3rem; font-weight: 800 ; color: azure;background-color:  #1e96fc;padding: 4.8rem 1.8rem;margin: 2rem 0; border-radius:1rem ;" class="mx-5">Good morning {{request.user.username}}</h1>
 <div>
     <div class="row">
     {% for i in data %}
-    
-    <div  onClick="reply_click(this.id)" id="{{i.vid_id}}" class="col-lg-3" style="color:white; display:inline-block">
+  
+    <div id="{{i.vid_id}}" onClick="reply_click(this.id)" class="col-lg-3 btnn" style="color:white; display:inline-block">
+      <!-- onClick="reply_click(this.id)" -->
       <img src="{{i.Home}}" style="cursor: pointer;" class="gap{{i}}"  width="300px" alt="">
       <p>{{i.name}}</p> 
     </div>
@@ -23,6 +18,23 @@
      
 </div>
 
-
+<script>
+  function reply_click(clicked_id)
+   {
+//       alert(clicked_id);
+//    //   eel.fun_args_py(clicked_id);
+$.ajax({
+          url:'',
+          type:'get',
+          data:{
+            btn_text: clicked_id
+          },
+          success:function(response){
+          console.log(clicked_id)
+          },
+        });
+}
+    
+ </script>
 {% endblock %}
 

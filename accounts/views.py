@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+from django.views.generic import View
 from django.shortcuts import render
 import requests
 from .models import APIData
@@ -24,17 +24,51 @@ from . import forms
 # @eel.expose
 # def fun_args(x):
 #         print('hello %s' % x)
+text = 'myname'
+
 @login_required
 def home(request):
-    
-    x_val = api_test.name_list
-    y_val = api_test.home_list
-    z_val = api_test.cover_list
-    n_val = api_test.vid_list
+   
+    if request.GET and request.is_ajax:
+        text = request.GET.get('btn_text')
+      
+        url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+text
+
+        headers = {
+        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
+        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
+        }
+        
+        resp = requests.request("GET", url, headers=headers)
+        data = resp.json()
+        title = (data['data'][0]['title'])
+        stream = (data['data'][0]['stream'])
+        download = (data['data'][0]['download'])
+        description = (data['data'][0]['description'])
+        cover = (data['episode'][0]['cover'])
+        episode = (data['episode'][0]['episode'])
+        typ = (data['episode'][0]['type'])
+        print(url)
+
+        return render(request,'detailv.html',{
+            'title':title,
+            'stream':stream,
+            'download':download,
+            'description':description,
+            'cover':cover,
+            'episode':episode,
+            'typ':typ,
+        
+        })
+    else:
+        x_val = api_test.name_list
+        y_val = api_test.home_list
+        z_val = api_test.cover_list
+        n_val = api_test.vid_list
     # print(x_val)
     # print(n_val)
-    APIData.objects.all().delete()
-    for i in range(0,30):
+        APIData.objects.all().delete()
+        for i in range(0,30):
             value = APIData(
                 name = x_val[i],
                 Home = y_val[i],
@@ -42,10 +76,14 @@ def home(request):
                 vid_id = n_val[i],
                 )
             value.save()
-    data = APIData.objects.all()
+        data = APIData.objects.all()
    
 
     return render(request ,'home.html',{'data':data})
+
+
+   
+
 
 
 @login_required
