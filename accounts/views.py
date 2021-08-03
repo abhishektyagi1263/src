@@ -24,42 +24,17 @@ from . import forms
 # @eel.expose
 # def fun_args(x):
 #         print('hello %s' % x)
-text = 'myname'
+
+
 
 @login_required
 def home(request):
    
     if request.GET and request.is_ajax:
+        global text 
         text = request.GET.get('btn_text')
       
-        url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+text
-
-        headers = {
-        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
-        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
-        }
-        
-        resp = requests.request("GET", url, headers=headers)
-        data = resp.json()
-        title = (data['data'][0]['title'])
-        stream = (data['data'][0]['stream'])
-        download = (data['data'][0]['download'])
-        description = (data['data'][0]['description'])
-        cover = (data['episode'][0]['cover'])
-        episode = (data['episode'][0]['episode'])
-        typ = (data['episode'][0]['type'])
-        print(url)
-
-        return render(request,'detailv.html',{
-            'title':title,
-            'stream':stream,
-            'download':download,
-            'description':description,
-            'cover':cover,
-            'episode':episode,
-            'typ':typ,
-        
-        })
+    
     else:
         x_val = api_test.name_list
         y_val = api_test.home_list
@@ -79,11 +54,41 @@ def home(request):
         data = APIData.objects.all()
    
 
-    return render(request ,'home.html',{'data':data})
+        return render(request ,'home.html',{'data':data})
 
 
    
 
+@login_required
+def detailv(request):
+        # text = %text
+        url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+text
+
+        headers = {
+        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
+        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
+        }
+        
+        resp = requests.request("GET", url, headers=headers)
+        data = resp.json()
+        title = (data['data'][0]['title'])
+        stream = (data['data'][0]['stream'])
+        download = (data['data'][0]['download'])
+        description = (data['data'][0]['description'])
+        cover = (data['episode'][0]['cover'])
+        episode = (data['episode'][0]['episode'])
+        typ = (data['episode'][0]['type'])
+        print(url)
+        return render(request,'detailv.html',
+        {
+            'title':title,
+            'stream':stream,
+            'download':download,
+            'description':description,
+            'cover':cover,
+            'episode':episode,
+            'typ':typ,}
+            )
 
 
 @login_required
@@ -95,7 +100,10 @@ def detailview(request):
         searchform = forms.SearchForm(request.POST)
         if searchform.is_valid():
             
-            pq = searchform.cleaned_data['search_anime']
+            search_str = searchform.cleaned_data['search_anime']
+            search_lower = search_str.lower()
+            pq = search_lower.replace(' ', '-')
+            print(pq)
 
    
     

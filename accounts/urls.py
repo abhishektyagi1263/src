@@ -9,6 +9,8 @@ urlpatterns = [
     path('verify/<auth_token>' , verify , name="verify"),
     path('error' , error_page , name="error"),
     path('detailview',detailview, name="detailview"),
+    path('detailv',detailv, name="detailv"),
+
     
 
   

@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% block content %}s
+{% block content %}
 <!-- <script type="text/javascript" src="../eel.js"></script> -->
-
-<li class="search"> 
-<form method = "POST" class="search-container">
+<p></p>
+<div class="search " style="color: white; margin:1rem auto;"> 
+<form method = "POST" class="search-container mx-auto">
  
   <!-- <input type="text" name="searchanime" placeholder="Search Anime with Episode"> -->
  
  
-    {{searchform.as_p}} {% csrf_token %}
+    {{searchform}} {% csrf_token %}
     <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
   <!-- <input type="submit" value=Submit"  class="search-btn"> -->
 </form>
-</li> 
+</div> 
   
   <div class="container" style="color: white;">
     <h3 class="mx-auto">{{title}}</h3>

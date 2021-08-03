@@ -12,28 +12,30 @@
         <div class="container">
             <img id="mobile-cta" class="mobile-menu" src="menuicon.svg" alt="menu-icon">
 
-            <a href="#" class="logo">Binge Watch</a>
+            <a href="{% url 'home' %}" style="display: flex;" class="logo"><script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                <lottie-player src="https://assets4.lottiefiles.com/temporary_files/jzVfLn.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;"  loop  autoplay></lottie-player>Anime Recommendator</a>
             <a href="#" class="logo login-link">Login</a>
             <nav>
                 <img id="mobile-exit" class="mobile-menu-exit" src="awesomeclose.svg" alt="Close Navigation">
+                {% if user.is_authenticated %}
 
                 <ul class="primary-nav">
                         <li class="search">
-                            <form action="#" class="search-container">
+                            <a href="{% url 'detailview' %}"><form action="#" class="search-container">
                             <input class="nav-search" type="text" placeholder="Search.." name="search">
                             <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
-                          </form>
+                          </form></a>
                         </li>
-                        <li><a href="#">Hollywood</a></li>
-                        <li><a href="#">Bollywood</a></li>
-                        <li><a href="#">About us</a></li>
+                       
                 </ul>
-    
+                {% else %}
+
                 <ul class="secondary-nav">
-                        <li><a href="#">Login</a></li>
-                        <li class="go-premium-cta"><a href="#">Create Account</a></li>
+                        <li class="btn btn-outline-danger mx-2"><a href="#" >Login</a></li>
+                        
+                        <li class="btn btn-danger"><a href="#">Create Account</a></li>
                 </ul>
-                
+                {% endif %}
             </nav>
 
         </div>

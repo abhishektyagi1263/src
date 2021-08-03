@@ -2,17 +2,18 @@
 {% block content %}s
 <!-- <script type="text/javascript" src="../eel.js"></script> -->
 
-<h1 class="head" style="font-size:3rem; font-weight: 800 ; color: azure;background-color:  #1e96fc;padding: 4.8rem 1.8rem;margin: 2rem 0; border-radius:1rem ;" class="mx-5">Good morning {{request.user.username}}</h1>
+<h1 class="head" style="font-size:3rem; font-weight: 800 ; color: azure;  background: linear-gradient(to right, #fc466b, #3f5efb);
+padding: 4.8rem 1.8rem;margin: 2rem ; border-radius:.2rem;   text-transform: capitalize;" class="mx-5">Welcome {{request.user.username}}</h1>
 <div>
-    <div class="row">
+    <div class="row ">
     {% for i in data %}
-  
-    <div id="{{i.vid_id}}" onClick="reply_click(this.id)" class="col-lg-3 btnn" style="color:white; display:inline-block">
+  <a href="{% url 'detailv' %}" class="col-lg-3 ">
+    <div id="{{i.vid_id}}" onClick="reply_click(this.id)" class="btnn" style="color:white; display:inline-block">
       <!-- onClick="reply_click(this.id)" -->
       <img src="{{i.Home}}" style="cursor: pointer;" class="gap{{i}}"  width="300px" alt="">
       <p>{{i.name}}</p> 
     </div>
-  
+  </a>
   {% endfor %}
   </div>
      
