@@ -8,10 +8,16 @@ padding: 4.8rem 1.8rem;margin: 2rem ; border-radius:.2rem;   text-transform: cap
     <div class="row ">
     {% for i in data %}
   <a href="{% url 'detailv' %}" class="col-lg-3 ">
-    <div id="{{i.vid_id}}" onClick="reply_click(this.id)" class="btnn" style="color:white; display:inline-block">
+    <div id="{{i.vid_id}}" onClick="reply_click(this.id)" class="btnn" style=" text-align: center;color:white; display:inline-block">
       <!-- onClick="reply_click(this.id)" -->
       <img src="{{i.Home}}" style="cursor: pointer;" class="gap{{i}}"  width="300px" alt="">
-      <p>{{i.name}}</p> 
+      <p style="position: relative; bottom:79px; width:85%;
+       backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 12px;
+      border: 1px solid rgba(209, 213, 219, 0.3);
+      margin: 1px auto;padding:11px 11px;" >{{i.name}}</p> 
     </div>
   </a>
   {% endfor %}
