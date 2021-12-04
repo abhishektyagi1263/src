@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 import uuid
+import pickle
+import re
+import pandas as pd
+from random import randint
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth import authenticate,login
@@ -19,6 +23,16 @@ from . import forms
 # import eel
 #importing eel
 
+
+def data_preprocessing():
+
+    #load the database
+    anime_db = pd.read_csv('D:/Binge watch/Create Account/src/accounts/MAL_final_1.csv')
+    anime_db.fillna('', inplace=True)
+    
+    
+    return anime_db
+
 # eel.init('web')
 # eel.start('/')
 # @eel.expose
@@ -31,26 +45,40 @@ from . import forms
 def home(request):
    
     if request.GET and request.is_ajax:
-        global text 
-        text = request.GET.get('btn_text')
-      
-    
+        global dep 
+        dep = request.GET.get('btn_text')
+        print(type(dep))
+        print("dep")
     else:
-        x_val = api_test.name_list
-        y_val = api_test.home_list
-        z_val = api_test.cover_list
-        n_val = api_test.vid_list
+        # x_val = api_test.name_list
+        
+        # y_val = api_test.home_list
+        # z_val = api_test.cover_list
+        # n_val = api_test.vid_list
     # print(x_val)
     # print(n_val)
-        APIData.objects.all().delete()
-        for i in range(0,30):
-            value = APIData(
-                name = x_val[i],
-                Home = y_val[i],
-                Cover =z_val[i],
-                vid_id = n_val[i],
-                )
-            value.save()
+        # APIData.objects.all().delete()
+        # for i in range(0,399):
+        #     value = APIData(      
+        #         # animeid = api_test.animeid[i],
+        #         name = api_test.name_list[i],
+        #         animetype=api_test.animetype[i],
+        #         episodes=api_test.episodes[i],
+        #         members=api_test.members[i],
+        #         score_members=api_test.smembers[i],
+        #         rating=api_test.rating[i],
+        #         dates=api_test.dates[i],
+        #         description=api_test.desc[i],
+        #         img_src=api_test.img_src[i],
+        #         english_name=api_test.english_name[i],
+        #         genre = api_test.genre[i],
+        #         genreb = api_test.genre1[i],
+        #         genrec = api_test.genre2[i],
+        #         genred = api_test.genre3[i],
+        #         url=api_test.url[i],
+               
+        #         )
+        #     value.save()
         data = APIData.objects.all()
    
 
@@ -60,40 +88,60 @@ def home(request):
    
 
 @login_required
-def detailv(request):
-        # text = %text
-        url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+text
-
-        headers = {
-        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
-        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
-        }
-        
-        resp = requests.request("GET", url, headers=headers)
-        data = resp.json()
-        title = (data['data'][0]['title'])
-        stream = (data['data'][0]['stream'])
-        download = (data['data'][0]['download'])
-        description = (data['data'][0]['description'])
-        cover = (data['episode'][0]['cover'])
-        episode = (data['episode'][0]['episode'])
-        typ = (data['episode'][0]['type'])
-        print(url)
+def detailv(request,members): 
+        print("strr")
+        name = "naruto"
+        strr= name.replace('%20',' ')
+        print(strr+"hey")
+        x=APIData.objects.get(members = members)
         return render(request,'detailv.html',
-        {
-            'title':title,
-            'stream':stream,
-            'download':download,
-            'description':description,
-            'cover':cover,
-            'episode':episode,
-            'typ':typ,}
-            )
+        {"data":x})
+
+def similar_by_content(request,query):
+    anime_db = data_preprocessing()
+    # if request.method == 'POST':
+    #     result = request.form
+    # query = result['name']
+    x=APIData.objects.get(name = query)
+    
+
+    #load the model file
+    pkl_file = open('D:/Binge watch/Create Account/src/accounts/anime_indices.pkl', 'rb')
+    indices = pickle.load(pkl_file)
+    if query not in anime_db['name']:
+        N = anime_db[anime_db['name'] == query].index[0]
+        anime_list = []
+        for n in indices[N][1:]:
+            if query not in anime_db.loc[n]['name']:
+                info = {
+                    "name": anime_db.loc[n]['name'],
+                    "english_name": anime_db.loc[n]['english_name'],
+                    "rating": round(anime_db.loc[n]['rating'],2),
+                    "genre": anime_db.loc[n]['genre'],
+                    "type": anime_db.loc[n]['type'],
+                    "MAL": anime_db.loc[n]['Image-SRC']
+                    
+                }    
+                anime_list.append(info)
+        print(anime_list[1])
+        return render(request,"similar.html",{"data":x,"name":query,"topanime":anime_list})
+
+
+@login_required
+def gen(request,genre): 
+       
+        fil1=APIData.objects.filter(genre = genre)
+        fil2=APIData.objects.filter(genreb = genre)
+        fil3=APIData.objects.filter(genrec = genre)
+        fil4=APIData.objects.filter(genred = genre)
+        print(fil1)
+        return render(request,'genre.html',
+        {"fil1":fil1,"fil2":fil2,"fil3":fil3,"fil4":fil4,"typ":genre})
 
 
 @login_required
 def detailview(request):
-    pq = "mahou-no-star-magical-emi-episode-32"
+    pq = "naruto"
     # nm = request.get['searchanime']
     searchform = forms.SearchForm()
     if request.method == 'POST':
@@ -101,33 +149,37 @@ def detailview(request):
         if searchform.is_valid():
             
             search_str = searchform.cleaned_data['search_anime']
-            search_lower = search_str.lower()
-            pq = search_lower.replace(' ', '-')
-            print(pq)
+            pq =  search_lower = search_str.lower()
+            # pq = search_lower.replace(' ', '-')
 
    
-    
-    url = "https://simpleanime.p.rapidapi.com/anime/info/videos/"+pq
+
+    url = "https://jikan1.p.rapidapi.com/search/anime"
+
+    querystring = {"q":pq}
 
     headers = {
-        'x-rapidapi-key': "ed05f6faedmsha141554d24b6379p1a82d6jsnad1adf5dc460",
-        'x-rapidapi-host': "simpleanime.p.rapidapi.com"
-    }
-    resp = requests.request("GET", url, headers=headers)
+        'x-rapidapi-host': "jikan1.p.rapidapi.com",
+        'x-rapidapi-key': "cea1f021f9msh214c83f714f9882p1d15ebjsn23bbce7cadf2"
+        }
+
+
+       
+    resp = requests.request("GET", url, headers=headers,params=querystring)
     data = resp.json()
-    title = (data['data'][0]['title'])
-    stream = (data['data'][0]['stream'])
-    download = (data['data'][0]['download'])
-    description = (data['data'][0]['description'])
-    cover = (data['episode'][0]['cover'])
-    episode = (data['episode'][0]['episode'])
-    typ = (data['episode'][0]['type'])
+    title = (data['results'][0]['title'])
+    # stream = (data['data'][0]['stream'])
+    # download = (data['data'][0]['download'])
+    description = (data['results'][0]['synopsis'])
+    cover = (data['results'][0]['image_url'])
+    episode = (data['results'][0]['episodes'])
+    typ = (data['results'][0]['score'])
 
 
     return render(request,'detailview.html',{
         'title':title,
-        'stream':stream,
-        'download':download,
+        # 'stream':stream,
+        # 'download':download,
         'description':description,
         'cover':cover,
         'episode':episode,

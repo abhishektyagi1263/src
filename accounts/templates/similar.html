@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <script type="text/javascript" src="../eel.js"></script> -->
+
+<div class="container" style="color: white;">
+    <h3 class="mx-auto" >{{data.english_name}}</h3>
+   <div class="row">
+   
+        <div class="col-lg-8"> 
+          <div class="bigline">
+           
+            <div class="base-line"><h5 class="base-child">Total Episodes : {{data.episodes}}</h5>
+              <h5 class="base-child">Stream : {{data.animetype}}</h5>
+              <h5 >Rating : {{data.rating}}</h5><img src="https://cdn-icons.flaticon.com/png/512/2956/premium/2956879.png?token=exp=1638599270~hmac=315cd9b42edbe2f11d7af560c4105984" width="25px" height="25px" alt="">
+               <h5 class="base-child" style="margin-left: .8rem;">Members : {{data.members}}</h5.>
+              
+              </div>
+              <br>
+              <h5>Genre :  <span class="sp">{{data.genreb}}</span> 
+                <span class="sp">{{data.genrec}}</span> <span class="sp">{{data.genred}}</span>
+                 </h5>
+                 Description: <p>{{data.description}}</p>
+                 <a class="btn " style=" color:white;
+                 background-color: linear-gradient(to right, #00dbde, #fc00ff); " href="{{stream}}">Stream</a> 
+           <a class="btn "  style=" color:white;
+           background-color: linear-gradient(to right, #00dbde, #fc00ff); " href="{{download}}"> Download</a>
+            
+          </div>
+           
+             </div>
+        <div class="col-lg-4"><img src="{{data.img_src}}" style="width: 350px;" alt="cover img of {{title}}"></div>  </div> 
+       
+    
+ 
+</div>
+<h3 style="text-align: center; color:white">Recommendations</h3>
+
+<div>
+    <div class="row mx-auto">
+    {% for i in topanime %}
+    
+  <a href="/similar_by_content/{{i.name}}" class="col-lg-2 col-xs-6 ">
+    <div id="{{i.name}}"  style=" margin:0 auto ;text-align: center;color:white; display:inline-block">
+      <!-- onClick="reply_click(this.id)" -->
+      <img src="{{i.MAL}}" style="cursor: pointer;" class="gap{{i}}"  width="219px" alt="">
+      <p style="position: relative; bottom:79px; width:85%;
+       backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background-color: rgba(0, 0, 0, 0.75);
+      border-radius: 12px;
+      border: 1px solid rgba(209, 213, 219, 0.3);
+      margin: 1px auto;padding:11px 11px;" >{{i.name}}</p> 
+      <!-- <p>{{i.img_src}}</p> -->
+    </div>
+  </a>
+  {% endfor %}
+
+ 
+ 
+  </div>
+     
+</div>
+
+{% endblock %}
+

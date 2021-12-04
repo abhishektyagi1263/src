@@ -13,13 +13,14 @@
       }
       
       body {
-        background: #121212;
+        background: #06070D;
         margin: 0;
         font-family: "Poppins";
       }
       
       .navbar {
-        background: #2c2c2c;
+        background: #15191E;
+;
         padding: 1em;
       }
       .navbar .logo {
@@ -76,6 +77,7 @@
         display: block;
         padding: 0.5em;
         font-family: 1.3em;
+        font-size: 1.5rem;
       }
       nav li a:hover {
         font-weight: bold;
@@ -86,7 +88,7 @@
       }
       .search .search-container .search-btn {
         padding: 0.5rem;
-        background: linear-gradient(to top, #eecda3, #ef629f); 
+        background: #FFCC1D; 
         color: white;
         font-size: 1em;
         border: none;
@@ -94,7 +96,7 @@
         cursor: pointer;
       }
       .search .search-container .search-btn:hover {
-        background: linear-gradient(to bottom, #ba5370, #f4e2d8);
+        background: #FFCC1D;
       }
       .search .search-container .search-btn:focus {
         outline: none;
@@ -115,8 +117,35 @@
       .mobile-menu-exit {
         cursor: pointer;
       }
+      .bigline{
+        border: solid 1px ;
+        padding:1.1rem;
+        border-radius: 4px;
+        border-image-source: linear-gradient(to right, #00dbde, #fc00ff);
+
+border-image-slice: 1;
+margin-bottom: .8rem;
+      }
+      .base-line{
+        display: flex;
+        flex-direction: row;
+        /* padding:1rem; */
+
+      }
+      .base-child{
+        margin-right:1rem;
+      }
+      .sp{
+        padding: .1rem .8rem; border-radius: 14px; background: #fc00ff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #00dbde, #fc00ff);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #00dbde, #fc00ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      }
       
       @media only screen and (min-width: 768px) {
+        .search .search-container {
+         width: 99%;
+      }
         .mobile-menu, .mobile-menu-exit, .login-link {
           display: none;
         }
@@ -130,6 +159,7 @@
         .navbar nav {
           display: flex;
           justify-content: space-between;
+          align-items: center;
           background: none;
           position: unset;
           height: auto;
@@ -148,15 +178,15 @@
           margin: 0;
         }
         .navbar nav li.current a {
-          font-weight: bold;
+      font-weight: bold;
         }
         .navbar nav li.go-premium-cta a {
           color: #fff;
-          background: #F9192B;
+          background: #FFCC1D;
           font-weight: bold;
         }
         .navbar nav li.go-premium-cta a:hover {
-          box-shadow: 0px 0px 15px rgba(249, 25, 43, 0.4);
+          box-shadow: 0px 0px 15px rgba(255, 252, 91, 0.514);
           color: white;
         }
       }
@@ -175,6 +205,8 @@
         .login-main .login-form {
           grid-area: loginform;
           text-align: left;
+          width: 74%;
+          margin: 0 auto;
         }
       }
       .login-main .login-form h1 {
@@ -190,7 +222,7 @@
       .login-main .login-form .form-group .form-input {
         padding: 0.5em;
         font-size: 1em;
-        border: none;
+        border: 1px solid #FFCC1D;
         border-radius: 3px;
         float: left;
         width: 94%;
@@ -200,8 +232,8 @@
       }
       .login-main .login-form .form-group .form-input:focus {
         outline: none;
-        border: 1px solid #fa3242;
-        box-shadow: 0 0 5px #fa3242;
+        border: 1px solid #FFCC1D;
+        box-shadow: 0 0 5px #FFCC1D;
       }
 .login-btn {
         color: #fff;

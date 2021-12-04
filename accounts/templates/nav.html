@@ -10,13 +10,13 @@
 <body>
     <div class="navbar">
         <div class="container">
-            <img id="mobile-cta" class="mobile-menu" src="menuicon.svg" alt="menu-icon">
+            <img id="mobile-cta" class="mobile-menu" src="https://i.ya-webdesign.com/images/hamburger-menu-icon-png-white-12.png" width="45px" alt="menu-icon">
 
             <a href="{% url 'home' %}" style="display: flex;" class="logo"><script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-                <lottie-player src="https://assets4.lottiefiles.com/temporary_files/jzVfLn.json"  background="transparent"  speed="1"  style="width: 50px; height: 50px;"  loop  autoplay></lottie-player>Anime Recommendator</a>
+                <lottie-player src="https://assets4.lottiefiles.com/temporary_files/jzVfLn.json"  background="transparent"  speed="1"  style="width: 60px; height: 60px;"  loop  autoplay></lottie-player><h5>My Anime Dictinary</h5></a>
             <a href="#" class="logo login-link">Login</a>
             <nav>
-                <img id="mobile-exit" class="mobile-menu-exit" src="awesomeclose.svg" alt="Close Navigation">
+                <img id="mobile-exit" class="mobile-menu-exit" src="https://i.ya-webdesign.com/images/hamburger-menu-icon-png-white-12.png" width="45px" alt="Close Navigation">
                 {% if user.is_authenticated %}
 
                 <ul class="primary-nav">
@@ -25,15 +25,30 @@
                             <input class="nav-search" type="text" placeholder="Search.." name="search">
                             <button class="search-btn" type="submit"><i class="fa fa-search"></i></button>
                           </form></a>
+                          
                         </li>
+                        <li><a href="/gen/Shounen">Shounen</a></li>
+                        <li><a href="/gen/Comedy">Comedy</a></li>
+                        <li><a href="/gen/Action">Action</a></li>
+                        <!-- <li><a href="/gen/Adventure">Adventure</a></li> -->
+                        <li><a href="/gen/Slice of Life">Slice of Life</a></li>
+                        
+                        <li><a href="/gen/Sci-Fi">Sci-Fi</a></li>
+                        <li><a href="/gen/Mystery">Mystery</a></li>
+                        <li><a href="/gen/School">School</a></li>
+                        <li><a href="/gen/Sports">Sports</a></li>
+                        
+                        <!-- <li><a href="">Adventure</a></li>
+                        <li><a href="">Sci-Fi</a></li> -->
+
                        
                 </ul>
                 {% else %}
 
                 <ul class="secondary-nav">
-                        <li class="btn btn-outline-danger mx-2"><a href="#" >Login</a></li>
+                        <li class="btn btn-outline-danger mx-2" style="border-color: #FFCC1D;"><a href="#" >Login</a></li>
                         
-                        <li class="btn btn-danger"><a href="#">Create Account</a></li>
+                        <li class="btn btn-danger" style="border-color: #FFCC1D; background-color: #FFCC1D;"><a href="#">Create Account</a></li>
                 </ul>
                 {% endif %}
             </nav>

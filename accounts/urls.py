@@ -9,14 +9,9 @@ urlpatterns = [
     path('verify/<auth_token>' , verify , name="verify"),
     path('error' , error_page , name="error"),
     path('detailview',detailview, name="detailview"),
-    path('detailv',detailv, name="detailv"),
-
-    
-
-  
-
-   
-
+    path('detailv/<members>',detailv, name="detailv"),
+    path('gen/<genre>',gen, name="gen"),
+    path('similar_by_content/<query>',similar_by_content, name="similar_by_content"),
     # path('accounts/logout',logout,name="logout")
 
 ]

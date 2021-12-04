@@ -4,18 +4,34 @@
 
   
   <div class="container" style="color: white;">
-    <h3 class="mx-auto">{{title}}:Title</h3>
+    <h3 class="mx-auto" >{{data.english_name}}</h3>
    <div class="row">
-        <div class="col-lg-8"> Description: <p>{{description}}</p>
-            <h5>Episode : {{episode}}</h5>
-            <h6>Type : {{typ}}</h6>
+   
+        <div class="col-lg-8"> 
+          <div class="bigline">
+           
+            <div class="base-line"><h5 class="base-child">Total Episodes : {{data.episodes}}</h5>
+              <h5 class="base-child">Stream : {{data.animetype}}</h5>
+              <h5 >Rating : {{data.rating}}</h5><img src="https://cdn-icons.flaticon.com/png/512/2956/premium/2956879.png?token=exp=1638599270~hmac=315cd9b42edbe2f11d7af560c4105984" width="25px" height="25px" alt="">
+               <h5 class="base-child" style="margin-left: .8rem;">Members : {{data.members}}</h5.>
+              
+              </div>
+              <br>
+              <h5>Genre : <span class="sp">{{data.genre}}</span> <span class="sp">{{data.genreb}}</span> 
+                <span class="sp">{{data.genrec}}</span> <span class="sp">{{data.genred}}</span>
+                 </h5>
+                 Description: <p>{{data.description}}</p>
+            
+          </div>
+           
             <a class="btn btn-success" href="{{stream}}">Stream</a> 
            <a class="btn btn-success"  href="{{download}}"> Download</a> </div>
-        <div class="col-lg-4"><img src="{{cover}}" style="width: 270px;" alt="cover img of {{title}}"></div>  </div> 
+        <div class="col-lg-4"><img src="{{data.img_src}}" style="width: 350px;" alt="cover img of {{title}}"></div>  </div> 
        
     
  
 </div>
+<div class="" style="background-color: blueviolet;height:455px; width:99%"></div>
 
 {% endblock %}
 
